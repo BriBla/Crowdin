@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crowdin
+{% endblock %}
+
+{% block body %}
+	<br>
+	<div class="row">
+		<div class="col-6 offset-3">
+			<div class="card bg-light">
+				<div class="card-body">
+					<h1 class="text-center">Register</h1>
+					{{ form_start(registrationForm) }}
+					{{ form_row(registrationForm.name) }}
+					{{ form_row(registrationForm.email) }}
+					{{ form_row(registrationForm.plainPassword) }}
+					<p>
+						You already have an account ?
+						<a href="/login">Login here</a><br>
+						<button class="btn btn-primary btn-block">Register</button>
+						{{ form_end(registrationForm) }}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

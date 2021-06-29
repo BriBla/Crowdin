@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crowdin
+{% endblock %}
+
+{% block body %}
+	<div class="card text-center">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path ('todolist')}}">Dashboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('create')}}">Create</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('listing')}}">Listing</a>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<div class="col-6 offset-3 text-center card-body w-30">
+				{% if project.block == 0 %}
+					<h3 class="card-header text-white bg-dark mb-3">
+						{{ project.name }}</h3>
+					{{ form_start(form) }}
+					{{ form_row(form.name) }}
+					{{ form_row(form.langage) }}
+					{{ form_row(form.source) }}
+					<button class="btn btn-outline-success">
+						Modifier</button>
+					<a href="{{ path ('todolist')}}">
+						<button type="button" class="btn btn-outline-warning">
+							Annuler</button>
+					</a>
+					{{ form_end(form) }}
+				</div>
+				<div class="col-6 offset-3 text-center card-body w-30">
+					<h3 class="card-header text-white bg-dark mb-3">Ajouter une source</h3>
+					<table class="table mt-4">
+						{{ form_start(form2) }}
+						{{ form_row(form2.sourcekey)}}
+						{{ form_row(form2.translation)}}
+						<button class="btn btn-outline-success">Ajouter</button>
+						<a href="{{ path ('todolist')}}">
+							<button type="button" class="btn btn-outline-warning">
+								Annuler</button>
+						</a>
+						{{ form_end(form2) }}
+					</table>
+				</div>
+				<div class="col-6 offset-3 text-center card-body w-30">
+					<h3 class="card-header text-white bg-dark mb-3">Ajouter un Fichier</h3>
+					<table class="table mt-4">
+						{{ form_start(form3) }}
+						{{ form_row(form3.source) }}
+						<button class="btn btn-outline-success">
+							Ajouter</button>
+						<a href="{{ path ('todolist')}}">
+							<button type="button" class="btn btn-outline-warning">
+								Annuler</button>
+						</a>
+						{{ form_end(form3) }}
+					</table>
+				</div>
+			{% else %}
+				<table class="table mt-4">
+					<thead>
+						<tr>
+							<th class="bg-warning text-white" scope="col">Modification Impossible</th>
+						</tr>
+					</thead>
+					<td>
+						<a href="{{ path ('todolist')}}">
+							<button type="button" class="btn btn-outline-success">
+								Retour</button>
+						</a>
+					</td>
+				</table>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

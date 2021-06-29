@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crowdin
+{% endblock %}
+
+{% block body %}
+	<div class="card text-center">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+				<li class="nav-item">
+					<a class="nav-link" href="/profile">Profil</a>
+				</li>
+				<li>
+					<a class="nav-link" href="/profile/add">Ajouter une langue</a>
+				</li>
+				<li>
+					<a class="nav-link active" href="/profile/stat">Mes statistiques</a>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<h3 class="card-header text-white bg-dark mb-3">Profil</h3>
+			<tbody>
+				<p>Nom :
+					{{ app.user.name }}</p>
+				<p>E-mail :
+					{{ app.user.email }}</p>
+			</tbody>
+		</div>
+		<div class="card-body d-inline-block">
+			<h3 class="card-header text-white bg-dark mb-3">Mes statistiques</h3>
+			<p>Nombre de projets : {{ total }}</p>
+		</div>
+	</div>
+
+{% endblock %}

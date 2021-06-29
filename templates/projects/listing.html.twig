@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crowdin
+{% endblock %}
+
+{% block body %}
+	<div class="card text-center">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('todolist')}}">Dashboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('create')}}">Create</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path ('listing')}}">Listing</a>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<h3 class="card-header text-white bg-dark mb-3">Projects</h3>
+			<table class="table table-hover mt-4">
+				<thead>
+					<tr>
+						<th class="bg-primary text-white" scope="col">#</th>
+						<th class="bg-primary text-white" scope="col">Nom</th>
+						<th class="bg-primary text-white" scope="col">Langue</th>
+						<th class="bg-primary text-white" scope="col">Date</th>
+						<th class="bg-primary text-white" scope="col"></th>
+					</tr>
+				</thead>
+				{% set counter = [] %}
+				{% set langues = [] %}
+				{% for userlangue in userlangues %}
+					{% set langues = langues|merge([userlangue.languename]) %}
+				{% endfor %}
+				{% for project in projects %}
+					{% if project.block == 0 and project.langage in langues %}
+						{% set counter = counter|merge([project.id]) %}
+						<tbody>
+							<tr>
+								<th scope="row">{{ project.id }}</th>
+								<td>{{ project.name }}</td>
+								<td>{{ project.langage }}</td>
+								<td>{{ project.createdAt|date('d/m/Y') }}</td>
+								<td>
+									<a href="{{ path ('show', {'id': project.id} )}}">
+										<button type="button" class="btn btn-outline-success">
+											Select</button>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					{% endif %}
+				{% endfor %}
+			</table>
+			<div class='d-flex justify-content-center'>{% do projects.setPageRange(2) %}{{ knp_pagination_render(projects, 'pagination.html.twig')}}</div>
+			<h3 class="card-header text-white bg-dark mb-3">Translation</h3>
+			<table class="table mt-4">
+				<thead>
+					{% if counter != NULL %}
+						<tr>
+							<th class="bg-primary text-white" scope="col">Files</th>
+						</tr>
+					</thead>
+				</thead>
+				<tbody>
+					<tr>
+						<th scope="row">
+							<a href="{{ path ('show', {'id': random(counter)} )}}">
+								<button type="button" class="btn btn-outline-success btn-lg btn-block">Random : Try it !</button>
+							</a>
+						{% else %}
+							<tr>
+								<th class="bg-warning text-white" scope="col">Aucun Projet Disponible</th>
+							</tr>
+						{% endif %}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

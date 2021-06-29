@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crowdin
+{% endblock %}
+
+{% block body %}
+	<div class="card text-center">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('todolist')}}">Dashboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('create')}}">Create</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path ('listing')}}">Listing</a>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<h3 class="card-header text-white bg-dark mb-3">Titre :
+				{% for project in projects %}
+					{{ project.name }}
+
+			</h3>
+			<table class="table table-hover mt-4">
+				<thead>
+					<tr>
+						<th class="bg-primary text-white" scope="col">Source</th>
+						<th class="bg-primary text-white" scope="col">Langue</th>
+						<th class="bg-primary text-white" scope="col">Texte</th>
+					</tr>
+				</thead>
+				{% for source in sources %}
+					<tbody>
+						<tr>
+							<td>{{ source.sourcekey }}</td>
+							<td>{{ project.langage }}</td>
+							<td>{{ source.translation }}</td>
+						</tr>
+					</tbody>
+				{% endfor %}
+				{% endfor %}
+			</table>
+		</div>
+		<div class="card-body">
+			<h3 class="card-header text-white bg-dark mb-3">Traduire</h3>
+			<table class="table mt-4">
+				<tbody>
+					<tr>
+						{{ form_start(form) }}
+						{{ form_row(form.sourcekey, {'attr': {'placeholder': 'Titre de la source'}}) }}
+						{{ form_row(form.langage) }}
+						{{ form_row(form.translation) }}
+						<button class="btn btn-outline-success">Ajouter la traduction</button>
+						{{ form_end(form) }}
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to Crowdin !
+{% endblock %}
+
+{% block body %}
+	<form method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+
+		{% if app.user %}
+			<div class="mb-3">
+				You are logged in as
+				{{ app.user.username }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
+
+		<br>
+		<div class="row">
+			<div class="col-6 offset-3">
+				<div class="card bg-light">
+					<div class="card-body">
+						<h1 class="text-center">Log in</h1>
+						<div class="form-group">
+							<label for="inputName">Name</label>
+							<input type="text" name="name" id="inputName" class="form-control" required autofocus>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword">Password</label>
+							<input type="password" name="password" id="inputPassword" class="form-control" required>
+						</div>
+						<p>
+							You don't already have account ?
+							<a href="/register">Register here</a>
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<button class="btn btn-lg btn-primary btn-block" type="submit">
+								Log in</button>
+						</p>
+					</div>
+				</div>
+			</div>
+		</form>
+	{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crowdin
+{% endblock %}
+
+{% block body %}
+	<div class="card text-center">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('todolist')}}">Dashboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path ('create')}}">Create</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path ('listing')}}">Listing</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-6 offset-3 text-center card-body w-30">
+			<h3 class="card-header text-white bg-dark mb-3">Projects</h3>
+			{{ form_start(form) }}
+			{{ form_row(form.name, {'attr': {'placeholder': 'Nom du Project'}}) }}
+			{{ form_row(form.langage) }}
+			{{ form_row(form.source, {'attr': {'placeholder': 'Insérer le ficher en CSV'}}) }}
+			<button class="btn btn-outline-success">
+				Valider</button>
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}
